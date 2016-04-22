@@ -1,8 +1,7 @@
 # hotelquickly
 Node.js Round #1 for hotelquickly
 
-1/ Install the project dependencies
-npm install
+1/ Install the project dependencie : <b>npm install</b>
 
 2/ Bonus question
  - Let PayPal and Braintree manage this for you if possible
