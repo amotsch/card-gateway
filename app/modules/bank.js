@@ -30,36 +30,55 @@ var init = function() {
  * Payment method
  */
 var payment = function(form, callback){
-	var payment = getTypePayment(form.number, form.currency);
-	// Paypal
-	if( payment == config.payment.paypal){
-		var paypalPayment = creationPaypalPayment(form);
-		paypal.payment.create(JSON.stringify(paypalPayment), function (error, payment) {
-			var transactionId = !error ?  payment.id : null;
-		    callback(error, transactionId);
-		});
+	if(validateForm(form)){
+		var payment = getTypePayment(form.number, form.currency);
+		// Paypal
+		if( payment == config.payment.paypal){
+			var paypalPayment = creationPaypalPayment(form);
+			paypal.payment.create(JSON.stringify(paypalPayment), function (error, payment) {
+				var transactionId = !error ?  payment.id : null;
+			    callback(error, transactionId);
+			});
+		}
+		// Braintree
+		else if(payment == config.payment.braintree){
+			braintreeGateWay.transaction.sale({
+				amount: form.price,
+				merchantAccountId: getBraintreeAccount(form.currency),
+				paymentMethodNonce: form.nonce,
+				  options: {
+				    submitForSettlement: true
+				  }
+				}, 
+				function (error, result) {
+					var transactionId = !error ?  result.transaction.id : null;
+					callback(error, transactionId);
+				}
+			);
+		}
+		// no payment
+		else{
+			callback("AMEX is possible to use only for USD", null);
+		}
 	}
-	// Braintree
-	else if(payment == config.payment.braintree){
-		braintreeGateWay.transaction.sale({
-			amount: form.price,
-			merchantAccountId: getBraintreeAccount(form.currency),
-			paymentMethodNonce: form.nonce,
-			  options: {
-			    submitForSettlement: true
-			  }
-			}, 
-			function (error, result) {
-				var transactionId = !error ?  result.transaction.id : null;
-				callback(error, transactionId);
-			}
-		);
-	}
-	// no payment
 	else{
-		callback("AMEX is possible to use only for USD", null)
+		callback("Incorrect form", null);
 	}
 }
+
+/**
+ * Validation form
+ * Same rules as Client side rules
+ */
+var validateForm = function(form){
+	//to complete
+	if(form.name.split(' ').length < 2){
+		return false;
+	}
+	
+	return true;
+}
+
 
 /**
  * if credit card type is AMEX, then use Paypal.
