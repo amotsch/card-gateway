@@ -1,0 +1,23 @@
+{
+  "name": "hotelquickly",
+  "version": "1.0.0",
+  "description": "hotel quickly payment",
+  "main": "",
+  "scripts": {
+    "test": "node app/test/bank-test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "adrien motsch",
+  "license": "ISC",
+  "devDependencies": {},
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "braintree": "^1.37.1",
+    "express": "^4.13.4",
+    "mongodb": "^2.1.16",
+    "paypal-rest-sdk": "^1.6.8"
+  }
+}

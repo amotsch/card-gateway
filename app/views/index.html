@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>  
+	<title>hotelquickly - Payment</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="description" content="hotelquickly payment paypal baintree" />	
+	<link rel="shortcut icon" href="/img/favicon.ico" />
+	<link href="./css/bootstrap.min.css" media="screen, projection" rel="stylesheet" type="text/css" />
+	<script src="./js/jquery.min.js"></script>
+	<script src="./js/global.js"></script>
+	<script src="https://js.braintreegateway.com/js/braintree-2.23.0.min.js"></script>
+</head>
+<body>
+	<header>
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					<h1>Hotel Quickly</h1>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<main class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="panel  panel-primary">
+					<div class="panel-heading"><b>Payment</b></div>
+					<div class="panel-body">
+						<div id="payment-message" class="hide alert"></div>
+						<form id="payment-form"  class="form-coord">
+							<h2>Order</h2>
+							<div class="form-group">
+								<label>Price *</label>
+								<input name="price" type="number" placeholder="Price (amount)" class="form-control"  required />
+							</div>
+							<div class="form-group">
+								<label>Currency *</label>
+								<select name="currency"   class="form-control" required>
+									  <option value="USD">USD</option>
+									  <option value="EUR">EUR</option>
+									  <option value="THB">THB</option>
+									  <option value="HKD">HKD</option>
+									  <option value="SGD">SGD</option>
+									  <option value="AUD">AUD</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label>Full name *</label>
+								<input name="name" type="text" placeholder="First Name - Last Name" class="form-control" required />
+							</div>
+							
+							<h2>Payment</h2>
+							<div class="form-group">
+								<label>Credit card holder name *</label>
+								<input name="creditCardName" type="text" placeholder="First Name - Last Name" class="form-control" required />
+							</div>
+							<div class="form-group">
+								<label>Credit card number *</label>
+								<input name="number" type="number" placeholder="Credit card number" class="form-control"  pattern=".{13,16}" required />
+							</div>
+							<div class="form-group">
+								<label>Credit card expiration *</label>
+								<input name="expiration" type="text" placeholder="Credit card expiration (MM/YY)" class="form-control" pattern=".{5,5}" required />
+							</div>
+							<div class="form-group">
+								<label>Credit card CCV *</label>
+								<input name="ccv" type="number" placeholder="Credit card CCV (XXX)" class="form-control" pattern=".{3,3}" required />
+							</div>
+							
+							<div class="text-center">
+								<input type="submit"  class="btn btn-primary"/>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+	<div class="text-center" id="loader" style="display:none; background-color: rgba(150,150,150,0.3);width: 100%;height: 100%;position: absolute; top:0; padding-top:25%">
+		<img alt="loading" src="/img/loading.gif" width="250px" /> 
+	</div>
+
+</body>
+</html>
